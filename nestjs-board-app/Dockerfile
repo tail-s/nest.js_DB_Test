@@ -17,4 +17,4 @@ COPY . .
 RUN npm run build
 
 # 프로덕션 모드에서 앱 실행
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:dev"]
