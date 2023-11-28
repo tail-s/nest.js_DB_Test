@@ -20,7 +20,7 @@ export default function BoardComp({ data }) {
                 setBoards(res.data);
             })
         }).catch((error) => {
-            console.log("삭제 권한이 없습니다.");
+            alert("삭제 권한이 없습니다.");
         })
     }
 

@@ -4,6 +4,7 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Auth from "./pages/Auth.jsx";
 import Board from "./pages/Board.jsx";
+import Posting from "./pages/Posting.jsx";
 import { RecoilRoot } from "recoil";
 
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/board" element={<Board />} />
+        <Route path="/posting" element={<Posting />} />
       </Routes>
     </RecoilRoot>
   );

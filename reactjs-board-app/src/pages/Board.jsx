@@ -4,10 +4,13 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import axios from 'axios';
 import { boardState } from "../states/boardState";
 import BoardComp from "../components/boardComp";
+import { useNavigate } from 'react-router-dom';
 
 export default function Board() {
 
-    const token = useRecoilValue(jwtState);
+    const navigate = useNavigate();
+
+    const [ token, setToken ] = useRecoilState(jwtState);
     const [ boards, setBoards ] = useRecoilState(boardState);
 
     const loading = async () => {
@@ -19,6 +22,18 @@ export default function Board() {
         });
     }
 
+    const logout = (event) => {
+        event.preventDefault();
+        setToken("");
+        setBoards([]);
+        navigate("/");
+    }
+
+    const posting = (event) => {
+        event.preventDefault();
+        navigate("/posting");
+    }
+
     useEffect(() => {
         loading();
     }, []);
@@ -26,6 +41,8 @@ export default function Board() {
     return (
         <div>
             <h1>Board</h1>
+            <button type="button" onClick={logout}>로그아웃</button>
+            <button type="button" onClick={posting}>작성하기</button>
             <p>게시판 목록</p>
             <div>
                 {boards.map((data) => (
