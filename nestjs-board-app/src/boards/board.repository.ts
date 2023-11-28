@@ -21,6 +21,7 @@ export class BoardRepository extends Repository<Board> {
       title,
       description,
       status: BoardStatus.PUBLIC,
+      writer: user.username,
       user,
     });
 

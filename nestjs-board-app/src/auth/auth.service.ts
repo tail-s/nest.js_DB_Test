@@ -24,7 +24,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({ where: { username } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      // 유저 토큰 생성 ( ecret + Payload )
+      // 유저 토큰 생성 ( secret + Payload )
       const payload = { username };
       const accessToken = await this.jwtService.sign(payload);
 

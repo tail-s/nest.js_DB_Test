@@ -33,10 +33,10 @@ export class BoardsController {
   //   return this.boardsService.getAllBoards();
   // }
 
-  // @Get('/')
-  // getAllBoard(): Promise<Board[]> {
-  //   return this.boardsService.getAllBoards();
-  // }
+  @Get('/')
+  getAllBoard(): Promise<Board[]> {
+    return this.boardsService.getAllBoards();
+  }
 
   // @Post()
   // @UsePipes(ValidationPipe)
@@ -94,9 +94,9 @@ export class BoardsController {
     return this.boardsService.updateBoardStatus(id, status);
   }
 
-  @Get('/')
-  getMyAllBoards(@GetUser() user: User): Promise<Board[]> {
-    this.logger.verbose(`User "${user.username}" trying to get all boards`);
-    return this.boardsService.getMyAllBoards(user);
-  }
+  // @Get('/')
+  // getMyAllBoards(@GetUser() user: User): Promise<Board[]> {
+  //   this.logger.verbose(`User "${user.username}" trying to get all boards`);
+  //   return this.boardsService.getMyAllBoards(user);
+  // }
 }
