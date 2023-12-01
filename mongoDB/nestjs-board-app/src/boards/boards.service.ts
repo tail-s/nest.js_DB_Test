@@ -6,6 +6,7 @@ import { User } from 'src/auth/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { unlink } from 'fs/promises';
+import { Response } from 'express';
 
 @Injectable()
 export class BoardsService {
@@ -28,6 +29,9 @@ export class BoardsService {
     const { title, description } = createBoardDto;
 
     const attachment = file ? file.path : '';
+    const originalFilename = file
+      ? Buffer.from(file.originalname, 'latin1').toString('utf8')
+      : '';
 
     const board = new this.boardModel({
       title,
@@ -36,6 +40,7 @@ export class BoardsService {
       writer: user.username,
       user: user._id,
       attachment,
+      originalFilename,
     });
 
     user.boards.push(board);
@@ -111,5 +116,15 @@ export class BoardsService {
   async getMyAllBoards(user: User): Promise<Board[]> {
     const boards = await this.boardModel.find({ userId: user.id }).exec();
     return boards;
+  }
+
+  async downloadFile(id: string, res: Response): Promise<void> {
+    const board = await this.boardModel.findById(id).exec();
+
+    if (!board || !board.attachment) {
+      throw new NotFoundException('File not found');
+    }
+
+    res.download(board.attachment, board.originalFilename);
   }
 }

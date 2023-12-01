@@ -7,11 +7,6 @@ import { User } from 'src/auth/user.schema';
   timestamps: true,
 })
 export class Board extends Document {
-  // @Prop({
-  //   required: true,
-  //   unique: true,
-  // })
-  // id: number;
 
   @Prop({
     required: true,
@@ -38,6 +33,9 @@ export class Board extends Document {
 
   @Prop()
   attachment?: string;
+
+  @Prop()
+  originalFilename?: string;
 }
 
 export const BoardSchema = SchemaFactory.createForClass(Board);

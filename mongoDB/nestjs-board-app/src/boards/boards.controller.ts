@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -25,6 +26,7 @@ import { User } from 'src/auth/user.schema';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Response } from 'express';
 
 @Controller('boards')
 @UseGuards(AuthGuard())
@@ -96,5 +98,10 @@ export class BoardsController {
     @Body() createBoardDto: CreateBoardDto,
   ): Promise<Board> {
     return this.boardsService.updateBoard(id, createBoardDto);
+  }
+
+  @Get('/:id/file')
+  downloadFile(@Param('id') id: string, @Res() res: Response): Promise<void> {
+    return this.boardsService.downloadFile(id, res);
   }
 }

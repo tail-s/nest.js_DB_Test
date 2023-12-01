@@ -8,7 +8,22 @@ export default function BoardComp({ data }) {
 
     const token = useRecoilValue(jwtState);
     const setBoards = useSetRecoilState(boardState);
-    const filePath = data.attachment ? data.attachment.replace(/\\/g, '/') : null;
+    // const filePath = data.attachment ? data.attachment.replace(/\\/g, '/') : null;
+    const download = (event) => {
+        event.preventDefault();
+        axios.get(`http://localhost:4000/boards/${data._id}/file`, {
+            headers: { Authorization: `Bearer ${token}` },
+            responseType: 'blob'  // add this line
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', data.originalFilename);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+        });
+    }
 
     const navigate = useNavigate();
 
@@ -37,8 +52,11 @@ export default function BoardComp({ data }) {
             <div>제목 : {data.title}</div>
             <div>작성자 : {data.writer}</div>
             <div>내용 : {data.description}</div>
+            {/* {data.attachment && (
+                <a href={`http://localhost:4000/${filePath}`} download={data.originalFilename}>{data.originalFilename}</a>
+            )} */}
             {data.attachment && (
-                <a href={`http://localhost:4000/${filePath}`}>첨부파일 다운로드</a>
+                <div onClick={download}>{data.originalFilename}</div>
             )}
             <button type="button" onClick={mod}>수정하기</button>
             <button type="button" onClick={del}>삭제하기</button>
