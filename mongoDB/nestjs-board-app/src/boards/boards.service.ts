@@ -95,6 +95,19 @@ export class BoardsService {
     return board;
   }
 
+  async updateBoard(
+    id: string,
+    createBoardDto: CreateBoardDto,
+  ): Promise<Board> {
+    const board = await this.boardModel.findById(id).exec();
+
+    board.title = createBoardDto.title;
+    board.description = createBoardDto.description;
+    await board.save();
+
+    return board;
+  }
+
   async getMyAllBoards(user: User): Promise<Board[]> {
     const boards = await this.boardModel.find({ userId: user.id }).exec();
     return boards;
