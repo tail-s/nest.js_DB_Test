@@ -5,6 +5,7 @@ import { Board } from './board.schema';
 import { User } from 'src/auth/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { unlink } from 'fs/promises';
 
 @Injectable()
 export class BoardsService {
@@ -70,6 +71,14 @@ export class BoardsService {
     if (boardIndex > -1) {
       user.boards.splice(boardIndex, 1);
       await this.userModel.findByIdAndUpdate(user._id, user);
+
+      if (boardToDelete.attachment) {
+        try {
+          await unlink(boardToDelete.attachment);
+        } catch (err) {
+          console.error(`Eror deleting file : ${err}`);
+        }
+      }
     }
 
     if (result.deletedCount === 0) {

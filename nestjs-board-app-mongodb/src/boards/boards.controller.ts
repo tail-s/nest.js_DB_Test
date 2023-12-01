@@ -24,7 +24,7 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.schema';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { lookup } from 'mime-types';
+import { extname } from 'path';
 
 @Controller('boards')
 @UseGuards(AuthGuard())
@@ -43,11 +43,13 @@ export class BoardsController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
-        destination(req, file, callback) {
-          callback(null, './static');
-        },
-        filename(req, file, callback) {
-          callback(null, `${new Date().getTime()}.${lookup(file.mimetype)}`);
+        destination: './static',
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          cb(null, `${randomName}${extname(file.originalname)}`);
         },
       }),
       limits: {
