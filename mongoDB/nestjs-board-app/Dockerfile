@@ -1,10 +1,10 @@
 # 노드 17.5.0 이미지 사용
-FROM node:17.5.0
+FROM node:20.10.0
 
 # 작업 디렉터리 생성
 WORKDIR /app
 
-# 패키지 파일 복사
+# 패키지 파일 복사s
 COPY package*.json ./
 
 # 패키지 설치
