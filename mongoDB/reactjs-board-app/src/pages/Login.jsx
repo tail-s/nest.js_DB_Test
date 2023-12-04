@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { jwtState } from '../states/jwtState';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../static/Logo.png';
+import './Login.css';
 
 export default function Login() {
 
@@ -41,25 +43,29 @@ export default function Login() {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
-            <p>로그인 화면</p>
-            <form onSubmit={login}>
-                <input
-                    type="text"
-                    placeholder="아이디를 입력해주세요."
-                    onChange={onUsernameHandler}
-                />
-                <input
-                    type="text"
-                    placeholder="비밀번호를 입력해주세요."
-                    onChange={onPasswordHandler}
-                />
-                <button type="submit">로그인</button>
-            </form>
-            <form onSubmit={signup}>
-                <button type="submit">회원가입</button>
-            </form>
+        <div className='container'>
+            <div className='content'>
+                <img className='logo' src={Logo} />
+                <div className='inputs'>
+                    <input
+                        className='input'
+                        type="text"
+                        placeholder="아이디를 입력해주세요."
+                        onChange={onUsernameHandler}
+                    />
+                    <input
+                    className='input'
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요."
+                        onChange={onPasswordHandler}
+                    />
+
+                </div>
+                
+                <span className='span'></span>
+                <button type='button' className='button' onClick={login}>로그인</button>
+                <button type='button' className='button' onClick={signup}>회원가입</button>
+            </div>
         </div>
     );
 }

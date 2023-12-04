@@ -3,6 +3,7 @@ import { jwtState } from '../states/jwtState';
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { boardState } from "../states/boardState";
 import { useNavigate } from 'react-router-dom';
+import './boardComp.css';
 
 export default function BoardComp({ data }) {
 
@@ -37,6 +38,7 @@ export default function BoardComp({ data }) {
         axios.delete(`http://localhost:4000/boards/${data._id}`, {
             headers: { Authorization: `Bearer ${token}`}
         }).then(() => {
+            alert("삭제되었습니다.");
             axios.get(`http://localhost:4000/boards`, {
                 headers: { Authorization: `Bearer ${token}` }
             }).then((res) => {
@@ -48,18 +50,17 @@ export default function BoardComp({ data }) {
     }
 
     return (
-        <div>
-            <div>제목 : {data.title}</div>
-            <div>작성자 : {data.writer}</div>
-            <div>내용 : {data.description}</div>
-            {/* {data.attachment && (
-                <a href={`http://localhost:4000/${filePath}`} download={data.originalFilename}>{data.originalFilename}</a>
-            )} */}
+        <div className="board-item">
+            <div className="title">제목 : {data.title}</div>
+            <div className="writer">작성자 : {data.writer}</div>
+            <div className="description">내용 : {data.description}</div>
             {data.attachment && (
-                <div onClick={download}>{data.originalFilename}</div>
+                <div className="download" onClick={download}>{data.originalFilename}</div>
             )}
-            <button type="button" onClick={mod}>수정하기</button>
-            <button type="button" onClick={del}>삭제하기</button>
+            <div className="buttons">
+                <button type="button" className="mod-btn" onClick={mod}>수정하기</button>
+                <button type="button" className="del-btn" onClick={del}>삭제하기</button>
+            </div>
         </div>
     );
 }

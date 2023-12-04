@@ -5,6 +5,7 @@ import axios from 'axios';
 import { boardState } from "../states/boardState";
 import BoardComp from "../components/boardComp";
 import { useNavigate } from 'react-router-dom';
+import './Board.css';
 
 export default function Board() {
 
@@ -40,12 +41,16 @@ export default function Board() {
     }, []);
 
     return (
-        <div>
-            <h1>Board</h1>
-            <button type="button" onClick={logout}>로그아웃</button>
-            <button type="button" onClick={posting}>작성하기</button>
-            <p>게시판 목록</p>
-            <div>
+        <div className="board-container">
+            <div className="header">
+                <h1>Wooam 게시판</h1>
+                <div className="buttons">
+                    <button type="button" className="logout-btn" onClick={logout}>로그아웃</button>
+                    <button type="button" className="post-btn" onClick={posting}>작성하기</button>
+                </div>
+            </div>
+            <p className="board-list-title">게시글</p>
+            <div className="board-list">
                 {boards.map((data) => (
                     <BoardComp key={data._id} data={data} />
                 ))}

@@ -1,0 +1,53 @@
+.board-item {
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title,
+.writer,
+.description {
+    margin-bottom: 10px;
+}
+
+.download {
+    margin-bottom: 20px;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.mod-btn,
+.del-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.mod-btn {
+    background: #ffc107;
+    color: black;
+
+    &:hover {
+        background: #e0a800;
+    }
+}
+
+.del-btn {
+    background: #dc3545;
+    color: white;
+
+    &:hover {
+        background: #c82333;
+    }
+}

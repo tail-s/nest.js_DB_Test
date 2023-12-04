@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { jwtState } from '../states/jwtState';
 import { useRecoilValue } from 'recoil';
+import './Posting.css';
 
 export default function Posting() {
 
@@ -71,15 +72,26 @@ export default function Posting() {
     };
 
     return (
-        <div>
-            <h1>게시글 {data ? '수정' : '작성'}</h1>
-            제목 : <input type="text" value={title} onChange={onTitleHandler} />
-            설명 : <input type="text" value={description} onChange={onDescriptionHandler} />
-            {!data && <>
-                파일 첨부: <input type="file" onChange={onFileChange} />
-            </>}
-            <button type="button" onClick={data ? modifying : posting}>{data ? '수정' : '작성'}</button>
-            <button type="button" onClick={list}>목록</button>
+        <div className="posting-container">
+            <h1 className="posting-title">게시글 {data ? '수정' : '작성'}</h1>
+            <div className="form-group">
+                <label>제목:</label>
+                <input className="input-field" type="text" value={title} onChange={onTitleHandler} />
+            </div>
+            <div className="form-group">
+                <label>내용:</label>
+                <input className="input-field" type="text" value={description} onChange={onDescriptionHandler} />
+            </div>
+            {!data && (
+                <div className="form-group">
+                    <label>파일 첨부:</label>
+                    <input className="input-field" type="file" onChange={onFileChange} />
+                </div>
+            )}
+            <div className="buttons">
+                <button className="primary-btn" type="button" onClick={data ? modifying : posting}>{data ? '수정' : '작성'}</button>
+                <button className="secondary-btn" type="button" onClick={list}>목록</button>
+            </div>
         </div>
     );
 }
