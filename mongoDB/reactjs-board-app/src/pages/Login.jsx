@@ -45,7 +45,7 @@ export default function Login() {
     return (
         <div className='container'>
             <div className='content'>
-                <img className='logo' src={Logo} />
+                <img className='logo' src={Logo} alt='wooam_logo' />
                 <div className='inputs'>
                     <input
                         className='input'
@@ -59,9 +59,7 @@ export default function Login() {
                         placeholder="비밀번호를 입력해주세요."
                         onChange={onPasswordHandler}
                     />
-
                 </div>
-                
                 <span className='span'></span>
                 <button type='button' className='button' onClick={login}>로그인</button>
                 <button type='button' className='button' onClick={signup}>회원가입</button>
