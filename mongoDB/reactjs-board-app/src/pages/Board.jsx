@@ -37,8 +37,11 @@ export default function Board() {
     }
 
     useEffect(() => {
-        loading();
-    }, []);
+        const fetchData = async() => {
+            await loading();
+        }
+        fetchData();
+    }, [token]);
 
     return (
         <div className="board-container">
