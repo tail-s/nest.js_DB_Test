@@ -37,11 +37,9 @@ export default function Board() {
     }
 
     useEffect(() => {
-        const fetchData = async() => {
-            await loading();
-        }
-        fetchData();
-    }, [token]);
+        loading();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="board-container">
